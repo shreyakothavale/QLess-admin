@@ -2,14 +2,11 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GetData extends Admin_Controller
+class Euphoria extends Admin_Controller
 {
     public function __construct()
 	{
 		parent::__construct();
-
-		$this->not_logged_in();
-
     }
     
     public function index()
@@ -17,7 +14,7 @@ class GetData extends Admin_Controller
         
     }
 
-    public function getProducts()
+    public function products()
 	{
 		$result = array('data' => array());
 
@@ -38,21 +35,13 @@ class GetData extends Admin_Controller
             array_pop($data[$key]);
 
             $data[$key]['brand'] = $brand[0]['name'];
+            
+		}
 
-			// $result['data'][$key] = array(
-			// 	$value['id'],
-            //     $value['name'],
-            //     $value['sku'],
-            //     $value['image'],
-            //     $brand[0],
-			// 	$value['description'],
-			// );
-		} // /foreach
-
-		echo json_encode($data,JSON_FORCE_OBJECT);
+		echo json_encode($data);
 	}
 
-    public function getCustomers()
+    public function customers()
 	{
 		$result = array('data' => array());
 
@@ -60,14 +49,13 @@ class GetData extends Admin_Controller
         $query = $this->db->query($sql);
         $data = $query->result_array();
 
-		echo json_encode($data,JSON_FORCE_OBJECT);
+		echo json_encode($data);
 	}
 
-    public function getOrders()
+    public function orders()
 	{
 		$result = array();
 
-		//$data = $this->model_orders->getOrdersData();
         $sql = "SELECT id,customer_name,customer_phone as contact,gross_amount as amount FROM orders ORDER BY id DESC";
         $query = $this->db->query($sql);
         $data = $query->result_array();
@@ -82,7 +70,7 @@ class GetData extends Admin_Controller
             $sql = "SELECT product_id FROM orders_item WHERE order_id = $id";
             $query = $this->db->query($sql);
             $products_id = $query->result_array();
-            //echo json_encode($products_id,JSON_FORCE_OBJECT);
+            
             $list = array();
             foreach ($products_id as $k => $v) {
                 
@@ -94,7 +82,7 @@ class GetData extends Admin_Controller
             }
             array_push($result,$list);
         }
-        echo json_encode($result,JSON_FORCE_OBJECT);
-		// echo json_encode($data,JSON_FORCE_OBJECT);
+        
+        echo json_encode($result);
 	}
 }
