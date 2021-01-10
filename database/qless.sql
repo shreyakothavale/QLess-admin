@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2021 at 06:01 PM
+-- Generation Time: Jan 10, 2021 at 09:21 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -194,6 +194,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `bill_no`, `customer_name`, `customer_address`, `customer_phone`, `date_time`, `gross_amount`, `service_charge_rate`, `service_charge`, `vat_charge_rate`, `vat_charge`, `net_amount`, `discount`, `paid_status`, `user_id`) VALUES
 (2, 'BILPR-642F', 'Alice', 'Pune', '1234567890', '1610092063', '3200.00', '13', '416.00', '10', '320.00', '3936.00', '', 1, 1),
+(3, 'BILPR-47AC', 'Jack', 'Pune', '9876543210', '1610092229', '3200.00', '13', '416.00', '10', '320.00', '3936.00', '', 1, 1),
 (4, 'BILPR-DC37', 'Bob', 'Pune', '1111111111', '1610092209', '2000.00', '13', '260.00', '10', '200.00', '2460.00', '', 1, 1);
 
 -- --------------------------------------------------------
@@ -252,7 +253,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `sku`, `price`, `qty`, `image`, `description`, `attribute_value_id`, `brand_id`, `category_id`, `store_id`, `availability`) VALUES
 (3, 'Sunglasses', '222222222', '800', '12', '', 'UV protection sunglasses', NULL, '[\"6\"]', '[\"4\"]', 3, 1),
-(4, 'Track shoes', '333333333', '1200', '9', '', 'Sports shoes', '', '[\"5\"]', '[\"4\"]', 3, 1),
+(4, 'Track shoes', '333333333', '1200', '9', '<p>The filetype you are attempting to upload is not allowed.</p>', 'Sports shoes', 'null', '[\"5\"]', '[\"4\"]', 3, 1),
 (5, 'Spikes shoes', '4444444444', '1500', '18', '<p>The upload destination folder does not appear to be writable.</p>', '<p>spikes shoes</p>', 'null', '[\"4\"]', '[\"4\"]', 3, 1),
 (6, 'Sneakers shoes', '55555555555', '900', '13', '<p>The upload destination folder does not appear to be writable.</p>', '<p>sneakers shoes<br></p>', 'null', '[\"5\"]', '[\"4\"]', 3, 1);
 

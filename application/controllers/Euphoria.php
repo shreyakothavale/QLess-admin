@@ -56,33 +56,39 @@ class Euphoria extends Admin_Controller
 	{
 		$result = array();
 
-        $sql = "SELECT id,customer_name,customer_phone as contact,gross_amount as amount FROM orders ORDER BY id DESC";
-        $query = $this->db->query($sql);
-        $data = $query->result_array();
-
         $sql = "SELECT DISTINCT order_id FROM orders_item";
         $query = $this->db->query($sql);
         $order_ids = $query->result_array();
         
         foreach ($order_ids as $key => $value) {
             
-            $id = $value['order_id'];
-            $sql = "SELECT product_id FROM orders_item WHERE order_id = $id";
+            $order_id = $value['order_id'];
+
+            $sql = "SELECT customer_phone FROM orders WHERE id = $order_id";
+            $query = $this->db->query($sql);
+            $contact = $query->result_array();
+
+            $sql = "SELECT product_id FROM orders_item WHERE order_id = $order_id";
             $query = $this->db->query($sql);
             $products_id = $query->result_array();
             
-            $list = array();
+            $transaction = array();
             foreach ($products_id as $k => $v) {
-                
                 $id = $v['product_id'];
-                $sql = "SELECT name AS product_name from products WHERE id = $id";
+
+                $sql = "SELECT id as product_id, name AS product_name from products WHERE id = $id";
                 $query = $this->db->query($sql);
                 $products = $query->result_array();
-                array_push($list,$products[0]['product_name']);
+
+                array_push($transaction,$products[0]);
             }
-            array_push($result,$list);
+            
+            $result[$key]['order_id'] = $value['order_id'];
+            $result[$key]['contact'] = $contact[0]['customer_phone'];
+            $result[$key]['transaction'] = $transaction;
+            
         }
-        
+
         echo json_encode($result);
 	}
 }
